@@ -1,0 +1,75 @@
+ownspark.sql("show databases").show()
+
+spark.sql("show tables").show()
+
+spark.sql("""DROP TABLE IF EXISTS d_owner""")
+
+spark.sql("""CREATE TABLE `d_owner` (
+    `host_id` INT,
+    `host_name` STRING,
+    `calculated_hosts_listing_count` INT)
+ROW FORMAT SERDE
+ 'org.apache.hadoop.hive.ql.io.orc.OrcSerde'
+STORED AS INPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat'
+OUTPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat'""")
+
+spark.sql("""DROP TABLE IF EXISTS d_room_details""")
+
+spark.sql("""CREATE TABLE `d_room_details` (
+    `id` int,
+    `room_type` STRING)
+ROW FORMAT SERDE
+ 'org.apache.hadoop.hive.ql.io.orc.OrcSerde'
+STORED AS INPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat'
+OUTPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat'""")
+
+spark.sql("""DROP TABLE IF EXISTS d_time""")
+
+spark.sql("""CREATE TABLE `d_time` (
+    `id` INT,
+    `year` INT,
+    `month` INT)
+ROW FORMAT SERDE
+ 'org.apache.hadoop.hive.ql.io.orc.OrcSerde'
+STORED AS INPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat'
+OUTPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat'""")
+
+
+spark.sql("""DROP TABLE IF EXISTS d_location""")
+
+spark.sql("""CREATE TABLE `d_location` (
+    `neighbourhood` STRING,
+    `neighbourhood_group` STRING)
+ROW FORMAT SERDE
+ 'org.apache.hadoop.hive.ql.io.orc.OrcSerde'
+STORED AS INPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat'
+OUTPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat'""")
+
+spark.sql("""DROP TABLE IF EXISTS f_facts""")
+
+spark.sql("""CREATE TABLE `f_facts` (
+    `location_neighbourhood` STRING,
+    `owner_host_id` INT,
+    `time_id` INT,
+    `room_details_id` INT,
+    `sum_review` INT,
+    `review_count` INT,
+    `sum_price` FLOAT,
+    `sum_available` INT,
+    `minimum_nights` INT)
+ROW FORMAT SERDE
+ 'org.apache.hadoop.hive.ql.io.orc.OrcSerde'
+STORED AS INPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat'
+OUTPUTFORMAT
+ 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat'""")
+
+spark.sql("show tables").show()
